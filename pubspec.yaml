@@ -1,0 +1,35 @@
+name: maawa
+description: "مأوى — تطبيق إسلامي شامل، وقفٌ لله تعالى."
+publish_to: 'none'
+version: 1.0.0+1
+
+environment:
+  sdk: '>=3.4.0 <4.0.0'
+
+dependencies:
+  flutter:
+    sdk: flutter
+  flutter_localizations:
+    sdk: flutter
+  shared_preferences: ^2.3.2
+  google_fonts: ^6.2.1
+  geolocator: ^13.0.1
+  sensors_plus: ^6.1.0
+  timezone: ^0.9.4
+  flutter_local_notifications: 17.2.4
+
+dev_dependencies:
+  flutter_launcher_icons: ^0.14.1
+
+flutter:
+  uses-material-design: true
+  assets:
+    - assets/data/
+
+flutter_launcher_icons:
+  android: true
+  ios: false
+  image_path: "assets/icon/icon.png"
+  adaptive_icon_background: "#44AD48"
+  adaptive_icon_foreground: "assets/icon/icon_fg.png"
+  min_sdk_android: 21
