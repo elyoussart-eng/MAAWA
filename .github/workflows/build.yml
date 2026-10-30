@@ -48,3 +48,37 @@ jobs:
         with:
           name: maawa-apk
           path: build/app/outputs/flutter-apk/app-release.apk
+
+  web:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: subosito/flutter-action@v2
+        with:
+          channel: stable
+          flutter-version: 3.32.x
+          cache: true
+
+      - name: Generate the web project
+        run: |
+          flutter create --platforms=web --org com.maawa --project-name maawa .
+          rm -rf test
+
+      - name: Get packages
+        run: flutter pub get
+
+      - name: Build web
+        run: flutter build web --release --no-web-resources-cdn
+
+      - name: Publish the web build to the "web" branch
+        run: |
+          cd build/web
+          git init -b web
+          git config user.name "github-actions"
+          git config user.email "actions@github.com"
+          git add -A
+          git commit -m "Web build ${GITHUB_SHA}"
+          git push -f "https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}" web

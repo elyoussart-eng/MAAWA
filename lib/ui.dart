@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 
 import 'l10n.dart';
 
@@ -25,28 +24,26 @@ class C {
   static Color deep(BuildContext c) => dark(c) ? const Color(0xFF7BD67F) : greenDeep;
 }
 
-TextStyle quranStyle(double size, {Color? color, double height = 2.0}) {
-  try {
-    return GoogleFonts.getFont('Amiri Quran', fontSize: size, height: height, color: color);
-  } catch (_) {
-    return GoogleFonts.amiri(fontSize: size, height: height, color: color);
-  }
-}
+const List<String> kFallback = ['NotoNaskh', 'NotoSans'];
 
-TextStyle naskhStyle(double size, {Color? color, double height = 1.9, FontWeight? weight}) =>
-    GoogleFonts.notoNaskhArabic(fontSize: size, height: height, color: color, fontWeight: weight);
+TextStyle quranStyle(double size, {Color? color, double height = 2.0}) => TextStyle(
+    fontFamily: 'AmiriQuran', fontFamilyFallback: kFallback, fontSize: size, height: height, color: color);
+
+TextStyle naskhStyle(double size, {Color? color, double height = 1.9, FontWeight? weight}) => TextStyle(
+    fontFamily: 'NotoNaskh', fontFamilyFallback: const ['NotoSans'], fontSize: size, height: height, color: color, fontWeight: weight);
 
 ThemeData buildTheme(Brightness b) {
   final dark = b == Brightness.dark;
   final base = ThemeData(
     useMaterial3: true,
     brightness: b,
+    fontFamily: 'Tajawal',
+    fontFamilyFallback: kFallback,
     colorScheme: ColorScheme.fromSeed(seedColor: C.green, brightness: b, primary: dark ? const Color(0xFF5DC15A) : C.green),
     scaffoldBackgroundColor: dark ? const Color(0xFF101418) : const Color(0xFFF1F3F6),
     cardColor: dark ? const Color(0xFF1A1F26) : Colors.white,
   );
   return base.copyWith(
-    textTheme: GoogleFonts.tajawalTextTheme(base.textTheme),
     appBarTheme: const AppBarTheme(centerTitle: false),
   );
 }

@@ -8,3 +8,4 @@ ios/
 pubspec.lock
 *.iml
 .idea/
+web/
